@@ -29,11 +29,10 @@ In this assignment, you will demonstrate your mastery of the following course ou
 * Debug coding errors by testing existing code, identifying errors, and correcting errors for improved functionality
 * Assemble basic, working programs that effectively integrate essential elements of object-oriented programming
 ## Prompt
-You have assumed the role of managing the technology infrastructure at a zoo. You will develop a working program (either an authentication system or a
-monitoring system) for the zoo designed to follow the specifications outlined in the overview. You will also provide detailed documentation describing
-your development process. Select from **one** of the following options as the basis of your program.
+You have assumed the role of managing the technology infrastructure at a zoo. You will develop a working program authentication system for the zoo designed to follow the specifications outlined in the overview. You will also provide detailed documentation describing
+your development process.
 
-### Option 1: Authentication System
+### Authentication System
 For security-minded professionals, it is important that only the appropriate people gain access to data in a computer system. This is called authentication. Once
 users gain entry, it is also important that they only see data related to their role in a computer system. This is called authorization. For the zoo, you will develop
 an authentication system that manages both authentication and authorization. You have been given a credentials file that contains credential information for
@@ -57,19 +56,8 @@ admin file will be displayed.
 
 You are allowed to add extra roles if you would like to see another type of user added to the system, but you may not remove any of the existing roles.
 
-### Option 2: Monitoring System
-As a zookeeper, it is important to know the activities of the animals in your care and to monitor their living habitats. Create a monitoring system that does all of
-the following:
-* Asks a user if they want to monitor an animal, monitor a habitat, or exit
-Displays a list of animal/habitat options (based on the previous selection) as read from either the animals or habitats file
-  * Asks the user to enter one of the options
-* Displays the monitoring information by finding the appropriate section in the file
-* Separates sections by the category and selection (such as “Animal - Lion” or “Habitat - Penguin”)
-* Uses a dialog box to alert the zookeeper if the monitor detects something out of the normal range (These will be denoted in the files by a new line
-starting with *****. Do not display the asterisks in the dialog.)
-* Allows a user to return to the original options
+<img src="https://raw.githubusercontent.com/rowland007/Zoo-Infrastructure/master/Docs/Authentication/Flowchart.png?raw=true">
 
-You are allowed to add extra animals, habitats, or alerts, but you may not remove the existing ones.
 
 Specifically, the following critical elements must be addressed:
 

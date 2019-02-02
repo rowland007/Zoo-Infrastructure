@@ -14,15 +14,17 @@ package com.randarlabs.security;
  
  License:           GNU General Public License v3.0
  Modifications:
- Date                      Comment
+    Date                      Comment
  ---------   ------------------------------------------------
+ 2FEB2019    Added TextReader class for scanner/file stream methods
  ************************************************************************/
+
+import com.randarlabs.common.TextReader;
 
 public class SecureAccountManager {
 
    public SecureAccountManager() {
-      //TODO Create a file scanner/parser
-      credentialFileName = "";
+      fileReader.setFile(credentialFileName);
       readUsername = "";
       readHashPassword = "";
       index = 0;
@@ -43,14 +45,18 @@ public class SecureAccountManager {
       return 0;
    }
    
+   public void closeCredentialFile() {
+      fileReader.closeFile();
+   }
    
    
-   private String credentialFileName;
+   private final static String credentialFileName = "credentials.txt";
    private String readUsername;
    private String readHashPassword;
    private String usernameArray[];
    private String passwordArray[];
    private int index;
+   private static TextReader fileReader = new TextReader();
 
 
 

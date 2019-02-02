@@ -14,8 +14,9 @@ package com.randarlabs.common;
  
  License:           GNU General Public License v3.0
  Modifications:
- Date                      Comment
+    Date                      Comment
  ---------   ------------------------------------------------
+ 2FEB2019    Added getNextXXXX methods from Scanner
  ************************************************************************/
 
 import java.io.FileInputStream;
@@ -50,6 +51,26 @@ public class TextReader {
       catch (IOException e) {
          System.err.println("Error closing file");
       }
+   }
+   
+   public final String getNextLine() {
+      return inFileStream.nextLine();
+   }
+   
+   public final String getNextWord() {
+      return inFileStream.next();
+   }
+   
+   public final int getNextInteger() {
+      return inFileStream.nextInt();
+   }
+   
+   public final double getNextDouble() {
+      return inFileStream.nextDouble();
+   }
+   
+   public final byte getNextByte() {
+      return inFileStream.nextByte();
    }
    
    private FileInputStream fileByteStream;

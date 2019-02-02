@@ -66,22 +66,14 @@ public class Main {
       userInput = scanner.next();
       user.setUsername(userInput);
       sam.findUsername(user.getUsername());
-      if(!sam.doesUsernameMatch(user.getUsername())) {
+      System.out.println("Please enter your password");
+      userInput = scanner.next();
+      user.setPassword(hasher.convertToHash(userInput));
+      if(!sam.doesUsernameMatch(user.getUsername()) || !sam.doesPasswordMatch(user.getPassword())) {
          failedLogin();
-         System.out.println("Username not found!\n\n\n"); //TODO Remove this line in production
       }
-      else  {
-         System.out.println("Please enter your password");
-         userInput = scanner.next();
-         user.setPassword(hasher.convertToHash(userInput));
-         if(!sam.doesPasswordMatch(user.getPassword())) {
-            failedLogin();
-            System.out.println("Incorrect password"); //TODO Remove this line in production
-         }
-         else {
-            showUserFile(user.getUsername());
-         }
-         
+      else {
+         showUserFile(user.getUsername());
       }
    }
    

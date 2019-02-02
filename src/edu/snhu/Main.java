@@ -16,6 +16,8 @@ package edu.snhu;
  Modifications:
  Date                      Comment
  ---------   ------------------------------------------------
+ 2FEB2019    Added a variable for user input & used variable for method arguments
+ 2FEB2019    Added a sleep timer before program exits
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;
@@ -23,11 +25,13 @@ import com.randarlabs.common.UserCredential;
 import com.randarlabs.security.SecureAccountManager;
 import com.randarlabs.utilities.PasswordConverter;
 
+import java.io.IOException;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
    
-   public static void main(String[] args) {
+   public static void main(String[] args) throws IOException {
       
       systemUsers.setFile("credentials.txt");
       
@@ -42,8 +46,13 @@ public class Main {
                break;
             case "Q":
                System.out.println("Goodbye");
-               //TODO add sleep for 300
-               return;
+               try {
+                  // Trying to pause the window from closing but close anyway if it can't pause
+                  TimeUnit.SECONDS.sleep(10);
+                  System.exit(0);
+               } catch (InterruptedException e) {
+                  System.exit(0);
+               }
             default:
                System.out.println("Invalid choice, please try again");
          }
@@ -54,20 +63,20 @@ public class Main {
    
    private static void logInScreen() {
       System.out.println("Welcome to Zoo Command & Control\nPlease enter your username ");
-      user.setUsername(scanner.next());
+      userInput = scanner.next();
+      user.setUsername(userInput);
       sam.findUsername(user.getUsername());
       if(!sam.doesUsernameMatch(user.getUsername())) {
-         failedLogins++;
-         System.out.println("Username not found!\n\n\n");
-         return;
+         failedLogin();
+         System.out.println("Username not found!\n\n\n"); //TODO Remove this line in production
       }
       else  {
          System.out.println("Please enter your password");
-         user.setPassword(hasher.convertToHash(scanner.next()));
+         userInput = scanner.next();
+         user.setPassword(hasher.convertToHash(userInput));
          if(!sam.doesPasswordMatch(user.getPassword())) {
-            failedLogins++;
-            System.out.println("Incorrect password");
-            return;
+            failedLogin();
+            System.out.println("Incorrect password"); //TODO Remove this line in production
          }
          else {
             showUserFile(user.getUsername());
@@ -79,7 +88,14 @@ public class Main {
    private static void showUserFile(String username) {
       //TODO take username and match it to the file name after removing txt
       // - Then display file to screen
+      userFile.setFile(username + ".txt");
       System.out.println(userFile.getFile());
+      userFile.closeFile();
+   }
+   
+   private static void failedLogin() {
+      failedLogins++;
+      System.out.println("Username or password is incorrect!");
    }
    
    
@@ -91,4 +107,5 @@ public class Main {
    private static SecureAccountManager sam = new SecureAccountManager();
    private static Scanner scanner = new Scanner(System.in);
    private static int failedLogins = 0;
+   private static String userInput = "";
 }

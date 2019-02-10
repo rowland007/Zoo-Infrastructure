@@ -39,14 +39,12 @@ public class SecureAccountManager {
       passwordArray = new String[MAX_ARRAY];
       passwordClearTextArray = new String[MAX_ARRAY];
       userGroup = new String[MAX_ARRAY];
-      while(EOF == -1)
+      while(fileReader.hasNext())
       {
-         String lineString = fileReader.getNextLine();
-         Scanner word = new Scanner(lineString);
-         usernameArray[index] = word.next();
-         passwordArray[index] = word.next();
-         passwordClearTextArray[index] = word.next();
-         userGroup[index] = word.next();
+         usernameArray[index] = fileReader.getNextWord();
+         passwordArray[index] = fileReader.getNextWord();
+         passwordClearTextArray[index] = fileReader.getNextWord();
+         userGroup[index] = fileReader.getNextWord();
          index++;
          maxIndex = index;
       }
@@ -117,7 +115,7 @@ public class SecureAccountManager {
       return -1;
    }
    
-   private final static String credentialFileName = "credentials.txt";
+   private final static String credentialFileName = "Docs/Authentication/credentials.txt";
    private String enteredUsername;
    private String enteredPassword;
    private String[] usernameArray;

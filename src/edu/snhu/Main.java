@@ -31,10 +31,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
    
-   public static void main(String[] args) throws IOException {
-      
-      systemUsers.setFile("credentials.txt");
-      
+   public static void main(String[] args) {
+      initializer();
       do {
          System.out.println("Please enter your choice:");
          System.out.println("L - Login to Zoo Command & Control");
@@ -48,7 +46,7 @@ public class Main {
                System.out.println("Goodbye");
                try {
                   // Trying to pause the window from closing but close anyway if it can't pause
-                  TimeUnit.SECONDS.sleep(10);
+                  TimeUnit.SECONDS.sleep(5);
                   System.exit(0);
                } catch (InterruptedException e) {
                   System.exit(0);
@@ -57,38 +55,28 @@ public class Main {
                System.out.println("Invalid choice, please try again");
          }
       } while (failedLogins < 3);
-      
-      systemUsers.closeFile();
    }
    
    private static void logInScreen() {
       System.out.println("Welcome to Zoo Command & Control\nPlease enter your username ");
       userInput = scanner.next();
       user.setUsername(userInput);
-      sam.findUsername(user.getUsername());
-      if(!sam.doesUsernameMatch(user.getUsername())) {
+      sam.setEnteredUsername(user.getUsername());
+      System.out.println("Enter your password");
+      userInput = scanner.next();
+      user.setPassword(userInput);
+      //user.setPassword(hasher.convertToHash(user.getPassword()));
+      sam.setEnteredPassword(user.getPassword());
+      if (sam.isValidAccountClearText()) {
+         showUserFile();
+         System.exit(0);
+      } else {
          failedLogin();
-         System.out.println("Username not found!\n\n\n"); //TODO Remove this line in production
-      }
-      else  {
-         System.out.println("Please enter your password");
-         userInput = scanner.next();
-         user.setPassword(hasher.convertToHash(userInput));
-         if(!sam.doesPasswordMatch(user.getPassword())) {
-            failedLogin();
-            System.out.println("Incorrect password"); //TODO Remove this line in production
-         }
-         else {
-            showUserFile(user.getUsername());
-         }
-         
       }
    }
    
-   private static void showUserFile(String username) {
-      //TODO take username and match it to the file name after removing txt
-      // - Then display file to screen
-      userFile.setFile(username + ".txt");
+   private static void showUserFile() {
+      userFile.setFile("Docs/Authentication/" + sam.getUserGroupClearText() + ".txt");
       System.out.println(userFile.getFile());
       userFile.closeFile();
    }
@@ -98,14 +86,27 @@ public class Main {
       System.out.println("Username or password is incorrect!");
    }
    
+   private static void initializer() {
+      try {
+         UserCredential user = new UserCredential();
+          PasswordConverter hasher = new PasswordConverter();
+         TextReader userFile = new TextReader();
+         TextReader systemUsers = new TextReader();
+         SecureAccountManager sam = new SecureAccountManager();
+         scanner = new Scanner(System.in);
+         failedLogins = 0;
+         String userInput = "";
+      } catch (ExceptionInInitializerError e) {
+         System.err.println("ERROR: Failed to initialize objects");
+      }
+   }
    
-   
-   private static UserCredential user = new UserCredential();
-   private static PasswordConverter hasher = new PasswordConverter();
-   private static TextReader userFile = new TextReader();
-   private static TextReader systemUsers = new TextReader();
-   private static SecureAccountManager sam = new SecureAccountManager();
-   private static Scanner scanner = new Scanner(System.in);
-   private static int failedLogins = 0;
-   private static String userInput = "";
+   private static UserCredential user;
+   private static PasswordConverter hasher;
+   private static TextReader userFile;
+   private static TextReader systemUsers;
+   private static SecureAccountManager sam;
+   private static Scanner scanner;
+   private static int failedLogins;
+   private static String userInput;
 }

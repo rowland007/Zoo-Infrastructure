@@ -16,50 +16,116 @@ package com.randarlabs.security;
  Modifications:
     Date                      Comment
  ---------   ------------------------------------------------
- 2FEB2019    Added TextReader class for scanner/file stream methods
+ 2FEB2019    Add TextReader class for scanner/file stream methods
+ 9FEB2019    Add arrays to hold each field of credentials file
+ 9FEB2019    Add method to return user account's user group
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;
+
+import java.util.Scanner;
+
+import static sun.nio.ch.IOStatus.EOF;
 
 public class SecureAccountManager {
 
    public SecureAccountManager() {
       fileReader.setFile(credentialFileName);
-      readUsername = "";
-      readHashPassword = "";
+      enteredUsername = "";
+      enteredPassword = "";
       index = 0;
+      maxIndex = 0;
+      usernameArray = new String[MAX_ARRAY];
+      passwordArray = new String[MAX_ARRAY];
+      passwordClearTextArray = new String[MAX_ARRAY];
+      userGroup = new String[MAX_ARRAY];
+      while(EOF == -1)
+      {
+         String lineString = fileReader.getNextLine();
+         Scanner word = new Scanner(lineString);
+         usernameArray[index] = word.next();
+         passwordArray[index] = word.next();
+         passwordClearTextArray[index] = word.next();
+         userGroup[index] = word.next();
+         index++;
+         maxIndex = index;
+      }
    }
    
-   public boolean doesUsernameMatch(String username) {
-      return this.readUsername.equals(username);
+   public final boolean isValidAccount() {
+      return findUsernameIndex() != -1 && doesPasswordMatch(passwordArray[index]);
    }
    
-   public boolean doesPasswordMatch(String password) {
-      return this.readHashPassword.equals(password);
+   public final boolean isValidAccountClearText() {
+      return findUsernameIndex() != -1 && doesPasswordMatch(passwordClearTextArray[index]);
    }
    
-   public int findUsername(String username) {
-      //TODO create a iterator to cycle through usernameArray to find matching username
-      // - IF username is found, return index number so can compare matching hash password
-      // - IF no username found, return null and exit SAM
-      return 0;
+   public final String getUserGroup(){
+      if(isValidAccount()) {
+         return userGroup[index];
+      } else {
+         return null;
+      }
    }
    
-   public void closeCredentialFile() {
+   public final String getUserGroupClearText(){
+      if(isValidAccountClearText()) {
+         return userGroup[index];
+      } else {
+         return null;
+      }
+   }
+   
+   public void setEnteredUsername(String enteredUsername) {
+      this.enteredUsername = enteredUsername;
+   }
+   
+   public void setEnteredPassword(String enteredPassword) {
+      this.enteredPassword = enteredPassword;
+   }
+   
+   private void closeCredentialFile() {
       fileReader.closeFile();
    }
    
+   public void close() {
+      enteredUsername = null;
+      enteredPassword = null;
+      usernameArray = null;
+      passwordArray = null;
+      passwordClearTextArray = null;
+      userGroup = null;
+      index = 0;
+      maxIndex = 0;
+      closeCredentialFile();
+   }
+   
+   private final boolean doesUsernameMatch(String username) {
+      return this.enteredUsername.equals(username);
+   }
+   
+   private final boolean doesPasswordMatch(String password) {
+      return this.enteredPassword.equals(password);
+   }
+   
+   private int findUsernameIndex() {
+      for(int i = 0; i <= this.maxIndex; i++) {
+         if(doesUsernameMatch(usernameArray[i])) {
+            return index = i;
+         }
+      }
+      return -1;
+   }
    
    private final static String credentialFileName = "credentials.txt";
-   private String readUsername;
-   private String readHashPassword;
-   private String usernameArray[];
-   private String passwordArray[];
+   private String enteredUsername;
+   private String enteredPassword;
+   private String[] usernameArray;
+   private String[] passwordArray;
+   private String[] passwordClearTextArray;
+   private String[] userGroup;
    private int index;
+   private int maxIndex;
+   private static final int MAX_ARRAY = 10;
    private static TextReader fileReader = new TextReader();
-
-
-
-
-
 }

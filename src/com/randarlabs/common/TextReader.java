@@ -73,6 +73,10 @@ public class TextReader {
       return inFileStream.nextByte();
    }
    
+   public final boolean hasNext() {
+      return inFileStream.hasNext();
+   }
+   
    private FileInputStream fileByteStream;
    private Scanner inFileStream;
 }

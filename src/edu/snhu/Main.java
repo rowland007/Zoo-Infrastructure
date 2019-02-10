@@ -32,7 +32,6 @@ import java.util.concurrent.TimeUnit;
 public class Main {
    
    public static void main(String[] args) {
-      initializer();
       do {
          System.out.println("Please enter your choice:");
          System.out.println("L - Login to Zoo Command & Control");
@@ -86,27 +85,12 @@ public class Main {
       System.out.println("Username or password is incorrect!");
    }
    
-   private static void initializer() {
-      try {
-         UserCredential user = new UserCredential();
-          PasswordConverter hasher = new PasswordConverter();
-         TextReader userFile = new TextReader();
-         TextReader systemUsers = new TextReader();
-         SecureAccountManager sam = new SecureAccountManager();
-         scanner = new Scanner(System.in);
-         failedLogins = 0;
-         String userInput = "";
-      } catch (ExceptionInInitializerError e) {
-         System.err.println("ERROR: Failed to initialize objects");
-      }
-   }
-   
-   private static UserCredential user;
-   private static PasswordConverter hasher;
-   private static TextReader userFile;
-   private static TextReader systemUsers;
-   private static SecureAccountManager sam;
-   private static Scanner scanner;
-   private static int failedLogins;
-   private static String userInput;
+   private static UserCredential user = new UserCredential();
+   private static PasswordConverter hasher = new PasswordConverter();
+   private static TextReader userFile = new TextReader();
+   private static TextReader systemUsers = new TextReader();
+   private static SecureAccountManager sam = new SecureAccountManager();
+   private static Scanner scanner = new Scanner(System.in);
+   private static int failedLogins = 0;
+   private static String userInput = "";
 }

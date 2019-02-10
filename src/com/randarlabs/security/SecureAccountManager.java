@@ -23,10 +23,6 @@ package com.randarlabs.security;
 
 import com.randarlabs.common.TextReader;
 
-import java.util.Scanner;
-
-import static sun.nio.ch.IOStatus.EOF;
-
 public class SecureAccountManager {
 
    public SecureAccountManager() {
@@ -38,13 +34,13 @@ public class SecureAccountManager {
       usernameArray = new String[MAX_ARRAY];
       passwordArray = new String[MAX_ARRAY];
       passwordClearTextArray = new String[MAX_ARRAY];
-      userGroup = new String[MAX_ARRAY];
+      userGroupArray = new String[MAX_ARRAY];
       while(fileReader.hasNext())
       {
          usernameArray[index] = fileReader.getNextWord();
          passwordArray[index] = fileReader.getNextWord();
          passwordClearTextArray[index] = fileReader.getNextWord();
-         userGroup[index] = fileReader.getNextWord();
+         userGroupArray[index] = fileReader.getNextWord();
          index++;
          maxIndex = index;
       }
@@ -60,7 +56,7 @@ public class SecureAccountManager {
    
    public final String getUserGroup(){
       if(isValidAccount()) {
-         return userGroup[index];
+         return userGroupArray[index];
       } else {
          return null;
       }
@@ -68,7 +64,7 @@ public class SecureAccountManager {
    
    public final String getUserGroupClearText(){
       if(isValidAccountClearText()) {
-         return userGroup[index];
+         return userGroupArray[index];
       } else {
          return null;
       }
@@ -92,7 +88,7 @@ public class SecureAccountManager {
       usernameArray = null;
       passwordArray = null;
       passwordClearTextArray = null;
-      userGroup = null;
+      userGroupArray = null;
       index = 0;
       maxIndex = 0;
       closeCredentialFile();
@@ -121,9 +117,9 @@ public class SecureAccountManager {
    private String[] usernameArray;
    private String[] passwordArray;
    private String[] passwordClearTextArray;
-   private String[] userGroup;
+   private String[] userGroupArray;
    private int index;
    private int maxIndex;
-   private static final int MAX_ARRAY = 10;
+   private static final int MAX_ARRAY = 50;
    private static TextReader fileReader = new TextReader();
 }

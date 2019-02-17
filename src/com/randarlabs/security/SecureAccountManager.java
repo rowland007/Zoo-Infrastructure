@@ -19,6 +19,7 @@ package com.randarlabs.security;
  2FEB2019    Add TextReader class for scanner/file stream methods
  9FEB2019    Add arrays to hold each field of credentials file
  9FEB2019    Add method to return user account's user group
+ 17FEB2019   Add delimiters when calling next() for credentials file
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;

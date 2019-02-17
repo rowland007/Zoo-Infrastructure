@@ -17,6 +17,7 @@ package com.randarlabs.common;
     Date                      Comment
  ---------   ------------------------------------------------
  2FEB2019    Added getNextXXXX methods from Scanner
+ 17FEB2019   Add method to set a delimiter
  ************************************************************************/
 
 import java.io.FileInputStream;

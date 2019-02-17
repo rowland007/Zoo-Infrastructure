@@ -37,9 +37,11 @@ public class SecureAccountManager {
       userGroupArray = new String[MAX_ARRAY];
       while(fileReader.hasNext())
       {
+         fileReader.useDelimiter("\t");
          usernameArray[index] = fileReader.getNextWord();
          passwordArray[index] = fileReader.getNextWord();
          passwordClearTextArray[index] = fileReader.getNextWord();
+         fileReader.useDelimiter("\r\n");
          userGroupArray[index] = fileReader.getNextWord();
          index++;
          maxIndex = index;

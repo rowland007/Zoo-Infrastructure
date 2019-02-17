@@ -19,6 +19,7 @@ package edu.snhu;
  2FEB2019    Added a variable for user input & used variable for method arguments
  2FEB2019    Added a sleep timer before program exits
  17FEB2019   Changed next() to nextLine() to get passwords with spaces
+ 17FEB2019   Set each user file to a variable and created a stream loop
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;
@@ -26,7 +27,6 @@ import com.randarlabs.common.UserCredential;
 import com.randarlabs.security.SecureAccountManager;
 import com.randarlabs.utilities.PasswordConverter;
 
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -77,9 +77,23 @@ public class Main {
    }
    
    private static void showUserFile() {
-      userFile.setFile("Docs/Authentication/" + sam.getUserGroupClearText() + ".txt");
-      System.out.println(userFile.getFile());
-      userFile.closeFile();
+      if(sam.getUserGroupClearText().equals("admin")) {
+         userFile.setFile(adminTextFile);
+      } else if(sam.getUserGroupClearText().equals("veterinarian")) {
+         userFile.setFile(vetTextFile);
+      } else if(sam.getUserGroupClearText().equals("zookeeper")) {
+         userFile.setFile(zookeeperTextFile);
+      }
+      try {
+         String lineOfText = userFile.getNextLine();
+         while (userFile.hasNext()) {
+            System.out.println(lineOfText);
+            lineOfText = userFile.getNextLine();
+         }
+         userFile.closeFile();
+      } catch (Exception e) {
+         System.err.println("Error with user's file");
+      }
    }
    
    private static void failedLogin() {
@@ -95,4 +109,7 @@ public class Main {
    private static Scanner scanner = new Scanner(System.in);
    private static int failedLogins = 0;
    private static String userInput = "";
+   private final static String adminTextFile = "Docs/Authentication/admin.txt";
+   private final static String zookeeperTextFile = "Docs/Authentication/zookeeper.txt";
+   private final static String vetTextFile = "Docs/Authentication/veterinarian.txt";
 }

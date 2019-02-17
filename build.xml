@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="zoo_infrastructure" default="all">
+  
+  
+  <property file="build.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+    <include name="*.ear"/>
+    <include name="*.klib"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/icedtea-sound.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/java-atk-wrapper.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module untitled104 -->
+  
+  <dirname property="module.untitled104.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.untitled104" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.untitled104" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.untitled104" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.untitled104" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="untitled104.output.dir" value="${module.untitled104.basedir}/out/production/untitled104"/>
+  <property name="untitled104.testoutput.dir" value="${module.untitled104.basedir}/out/test/untitled104"/>
+  
+  <path id="untitled104.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="untitled104.module.production.classpath">
+    <path refid="${module.jdk.classpath.untitled104}"/>
+  </path>
+  
+  <path id="untitled104.runtime.production.module.classpath">
+    <pathelement location="${untitled104.output.dir}"/>
+  </path>
+  
+  <path id="untitled104.module.classpath">
+    <path refid="${module.jdk.classpath.untitled104}"/>
+    <pathelement location="${untitled104.output.dir}"/>
+  </path>
+  
+  <path id="untitled104.runtime.module.classpath">
+    <pathelement location="${untitled104.testoutput.dir}"/>
+    <pathelement location="${untitled104.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.untitled104">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.untitled104">
+    <patternset refid="excluded.from.module.untitled104"/>
+  </patternset>
+  
+  <path id="untitled104.module.sourcepath">
+    <dirset dir="${module.untitled104.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.untitled104" depends="compile.module.untitled104.production,compile.module.untitled104.tests" description="Compile module untitled104"/>
+  
+  <target name="compile.module.untitled104.production" description="Compile module untitled104; production classes">
+    <mkdir dir="${untitled104.output.dir}"/>
+    <javac destdir="${untitled104.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.untitled104}/javac">
+      <compilerarg line="${compiler.args.untitled104}"/>
+      <bootclasspath refid="untitled104.module.bootclasspath"/>
+      <classpath refid="untitled104.module.production.classpath"/>
+      <src refid="untitled104.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.untitled104"/>
+    </javac>
+    
+    <copy todir="${untitled104.output.dir}">
+      <fileset dir="${module.untitled104.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.untitled104.tests" depends="compile.module.untitled104.production" description="compile module untitled104; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.untitled104" description="cleanup module">
+    <delete dir="${untitled104.output.dir}"/>
+    <delete dir="${untitled104.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.untitled104" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.untitled104" description="build all modules"/>
+  
+  <target name="test" depends="build.modules" description="build all"/>
+</project>

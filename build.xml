@@ -173,5 +173,7 @@
   
   <target name="build.modules" depends="init, clean, compile.module.untitled104" description="build all modules"/>
   
-  <target name="test" depends="build.modules" description="build all"/>
+  <target name="all" depends="build.modules" description="build all"/>
+
+  <target name="test" depends="all" description="build all"/>
 </project>

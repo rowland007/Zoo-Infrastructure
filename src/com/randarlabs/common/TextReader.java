@@ -28,6 +28,7 @@ public class TextReader {
    public TextReader() {
       fileByteStream = null;
       inFileStream = null;
+      delimiter = "";
    }
    
    public void setFile(String fileName) {
@@ -77,6 +78,11 @@ public class TextReader {
       return inFileStream.hasNext();
    }
    
+   public void useDelimiter(String delimiter) {
+      inFileStream.useDelimiter(delimiter);
+   }
+   
    private FileInputStream fileByteStream;
    private Scanner inFileStream;
+   private String delimiter;
 }

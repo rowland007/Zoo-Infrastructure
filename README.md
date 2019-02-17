@@ -1,6 +1,11 @@
 # Zoo Infrastructure
 
 # IT 145 Final Project Guidelines and Rubric
+
+|  | master | develop |
+|:------:|:------:|:-------:|
+| Build Status | [![Build Status](https://travis-ci.com/rowland007/Zoo-Infrastructure.svg?branch=master)](https://travis-ci.com/rowland007/Zoo-Infrastructure) | [![Build Status](https://travis-ci.com/rowland007/Zoo-Infrastructure.svg?branch=develop)](https://travis-ci.com/rowland007/Zoo-Infrastructure) |
+| Code Quality | [![CodeFactor](https://www.codefactor.io/repository/github/rowland007/zoo-infrastructure/badge/master)](https://www.codefactor.io/repository/github/rowland007/zoo-infrastructure/overview/master) | [![CodeFactor](https://www.codefactor.io/repository/github/rowland007/zoo-infrastructure/badge)](https://www.codefactor.io/repository/github/rowland007/zoo-infrastructure) |
 ## Overview
 A successful career in software development depends on a thorough understanding of the fundamentals of object-oriented programming and best practices for
 software development. Your final project for this course will require you to apply the knowledge you have obtained prior to and during this course to the

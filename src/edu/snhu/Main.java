@@ -18,6 +18,7 @@ package edu.snhu;
  ---------   ------------------------------------------------
  2FEB2019    Added a variable for user input & used variable for method arguments
  2FEB2019    Added a sleep timer before program exits
+ 17FEB2019   Changed next() to nextLine() to get passwords with spaces
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;
@@ -39,6 +40,7 @@ public class Main {
          String choice = scanner.next();
          switch (choice) {
             case "L":
+               scanner.nextLine();
                logInScreen();
                break;
             case "Q":
@@ -58,11 +60,11 @@ public class Main {
    
    private static void logInScreen() {
       System.out.println("Welcome to Zoo Command & Control\nPlease enter your username ");
-      userInput = scanner.next();
+      userInput = scanner.nextLine();
       user.setUsername(userInput);
       sam.setEnteredUsername(user.getUsername());
       System.out.println("Enter your password");
-      userInput = scanner.next();
+      userInput = scanner.nextLine();
       user.setPassword(userInput);
       //user.setPassword(hasher.convertToHash(user.getPassword()));
       sam.setEnteredPassword(user.getPassword());

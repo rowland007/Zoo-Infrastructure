@@ -129,27 +129,4 @@ public class SecureAccountManager {
    private int maxIndex;
    private static final int MAX_ARRAY = 50;
    private static TextReader fileReader = new TextReader();
-   
-   
-   // TODO The following are for testing purposes only and need to be removed before production
-   public  void getUserNames() {
-      for(int i = 0; i <= this.maxIndex; i++) {
-         System.out.println(usernameArray[i]);
-      }
-   }
-   public void getUserPasswords() {
-      for(int i = 0; i <= this.maxIndex; i++) {
-         System.out.println(passwordArray[i]);
-      }
-   }
-   public void getUserPasswordsClearText() {
-      for(int i = 0; i <= this.maxIndex; i++) {
-         System.out.println(passwordClearTextArray[i]);
-      }
-   }
-   public  void getUserGroups() {
-      for(int i = 0; i <= this.maxIndex; i++) {
-         System.out.println(userGroupArray[i]);
-      }
-   }
 }

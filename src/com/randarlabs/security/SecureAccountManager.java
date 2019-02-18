@@ -20,9 +20,12 @@ package com.randarlabs.security;
  9FEB2019    Add arrays to hold each field of credentials file
  9FEB2019    Add method to return user account's user group
  17FEB2019   Add delimiters when calling next() for credentials file
+ 18FEB2019   Refactor how arrays are initialized
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;
+
+import java.util.Scanner;
 
 public class SecureAccountManager {
 
@@ -38,12 +41,13 @@ public class SecureAccountManager {
       userGroupArray = new String[MAX_ARRAY];
       while(fileReader.hasNext())
       {
-         fileReader.useDelimiter("\t");
-         usernameArray[index] = fileReader.getNextWord();
-         passwordArray[index] = fileReader.getNextWord();
-         passwordClearTextArray[index] = fileReader.getNextWord();
-         fileReader.useDelimiter("\r\n");
-         userGroupArray[index] = fileReader.getNextWord();
+         String line = fileReader.getNextLine();
+         Scanner scnr = new Scanner(line);
+         scnr.useDelimiter("\t");
+         usernameArray[index] = scnr.next();
+         passwordArray[index] = scnr.next();
+         passwordClearTextArray[index] = scnr.next();
+         userGroupArray[index] = scnr.next();
          index++;
          maxIndex = index;
       }
@@ -125,4 +129,27 @@ public class SecureAccountManager {
    private int maxIndex;
    private static final int MAX_ARRAY = 50;
    private static TextReader fileReader = new TextReader();
+   
+   
+   // TODO The following are for testing purposes only and need to be removed before production
+   public  void getUserNames() {
+      for(int i = 0; i <= this.maxIndex; i++) {
+         System.out.println(usernameArray[i]);
+      }
+   }
+   public void getUserPasswords() {
+      for(int i = 0; i <= this.maxIndex; i++) {
+         System.out.println(passwordArray[i]);
+      }
+   }
+   public void getUserPasswordsClearText() {
+      for(int i = 0; i <= this.maxIndex; i++) {
+         System.out.println(passwordClearTextArray[i]);
+      }
+   }
+   public  void getUserGroups() {
+      for(int i = 0; i <= this.maxIndex; i++) {
+         System.out.println(userGroupArray[i]);
+      }
+   }
 }

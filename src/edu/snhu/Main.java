@@ -21,6 +21,7 @@ package edu.snhu;
  17FEB2019   Changed next() to nextLine() to get passwords with spaces
  17FEB2019   Set each user file to a variable and created a stream loop
  18FEB2019   Change from clear text to hashed passwords
+ 18FEB2019   Handle the Exception thrown from the user's file
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;
@@ -28,6 +29,7 @@ import com.randarlabs.common.UserCredential;
 import com.randarlabs.security.SecureAccountManager;
 import com.randarlabs.utilities.PasswordConverter;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -88,14 +90,16 @@ public class Main {
          userFile.setFile(zookeeperTextFile);
       }
       try {
-         String lineOfText = userFile.getNextLine();
-         while (userFile.hasNext()) {
+         String lineOfText = "";
+         while((lineOfText = userFile.getNextLine()) != null)
+         {
             System.out.println(lineOfText);
-            lineOfText = userFile.getNextLine();
          }
          userFile.closeFile();
+      } catch (NoSuchElementException e) {
+         // Ignore the blank space in the user's file.
       } catch (Exception e) {
-         System.err.println("Error with user's file");
+         System.err.println("Error with user's file because of " + e);
       }
    }
    

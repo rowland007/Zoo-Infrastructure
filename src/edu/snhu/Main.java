@@ -20,6 +20,7 @@ package edu.snhu;
  2FEB2019    Added a sleep timer before program exits
  17FEB2019   Changed next() to nextLine() to get passwords with spaces
  17FEB2019   Set each user file to a variable and created a stream loop
+ 18FEB2019   Change from clear text to hashed passwords
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;
@@ -40,16 +41,18 @@ public class Main {
          String choice = scanner.next();
          switch (choice) {
             case "L":
+            case "l":
                scanner.nextLine();
                logInScreen();
                break;
             case "Q":
+            case "q":
                System.out.println("Goodbye");
                try {
                   // Trying to pause the window from closing but close anyway if it can't pause
                   TimeUnit.SECONDS.sleep(5);
                   System.exit(0);
-               } catch (InterruptedException e) {
+               } catch (Exception e) {
                   System.exit(0);
                }
             default:
@@ -66,9 +69,9 @@ public class Main {
       System.out.println("Enter your password");
       userInput = scanner.nextLine();
       user.setPassword(userInput);
-      //user.setPassword(hasher.convertToHash(user.getPassword()));
+      user.setPassword(hasher.convertToHash(user.getPassword()));
       sam.setEnteredPassword(user.getPassword());
-      if (sam.isValidAccountClearText()) {
+      if (sam.isValidAccount()) {
          showUserFile();
          System.exit(0);
       } else {
@@ -77,11 +80,11 @@ public class Main {
    }
    
    private static void showUserFile() {
-      if(sam.getUserGroupClearText().equals("admin")) {
+      if(sam.getUserGroup().equals("admin")) {
          userFile.setFile(adminTextFile);
-      } else if(sam.getUserGroupClearText().equals("veterinarian")) {
+      } else if(sam.getUserGroup().equals("veterinarian")) {
          userFile.setFile(vetTextFile);
-      } else if(sam.getUserGroupClearText().equals("zookeeper")) {
+      } else if(sam.getUserGroup().equals("zookeeper")) {
          userFile.setFile(zookeeperTextFile);
       }
       try {

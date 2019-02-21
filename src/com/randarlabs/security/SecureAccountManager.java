@@ -21,6 +21,7 @@ package com.randarlabs.security;
  9FEB2019    Add method to return user account's user group
  17FEB2019   Add delimiters when calling next() for credentials file
  18FEB2019   Refactor how arrays are initialized
+ 20FEB2019   Update link to credential file
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;
@@ -118,7 +119,7 @@ public class SecureAccountManager {
       return -1;
    }
    
-   private final static String credentialFileName = "Docs/Authentication/credentials.txt";
+   private final static String credentialFileName = "../Docs/Authentication/credentials.txt";
    private String enteredUsername;
    private String enteredPassword;
    private String[] usernameArray;

@@ -26,6 +26,7 @@
  20FEB2019   Moved class to default package
  20FEB2019   Update links to user files
  20FEB2019   Add method to clear the screen
+ 21FEB2019   Add javadoc comments
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;
@@ -37,8 +38,21 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Used to open and read text files
+ * @author Randall Rowland
+ * @version 1.0
+ * @since 0.0.1
+ */
 public class Main {
    
+   /**
+    * main program loop.
+    *
+    * Loops until 3 failed login attempts or user quits.
+    *
+    * @param args not used
+    */
    public static void main(String[] args) {
       do {
          clearScreen();
@@ -68,6 +82,11 @@ public class Main {
       } while (failedLogins < 3);
    }
    
+   /**
+    * Used to display the login screen and collect username/password.
+    *
+    * Also invokes SAM to compare username/passwords.
+    */
    private static void logInScreen() {
       clearScreen();
       System.out.println("Welcome to Zoo Command & Control\nPlease enter your username ");
@@ -88,6 +107,9 @@ public class Main {
       }
    }
    
+   /**
+    * Uses SAM to validate username/password and display user's file
+    */
    private static void showUserFile() {
       if(sam.getUserGroup().equals("admin")) {
          userFile.setFile(adminTextFile);
@@ -111,6 +133,9 @@ public class Main {
       }
    }
    
+   /**
+    * Increments the failed login counter and lets user know there was an error logging in.
+    */
    private static void failedLogin() {
       failedLogins++;
       clearScreen();
@@ -118,6 +143,9 @@ public class Main {
       pressAnyKeyToContinue();
    }
    
+   /**
+    * Pauses program execution until the user presses Enter.
+    */
    private static void pressAnyKeyToContinue()
    {
       System.out.println("Press \"Enter\" key to continue...");
@@ -130,6 +158,9 @@ public class Main {
       {}
    }
    
+   /**
+    * Clears the screen of previous text, errors, etc.
+    */
    private static void clearScreen() {
       try
       {

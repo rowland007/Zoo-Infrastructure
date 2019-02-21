@@ -22,6 +22,8 @@ package edu.snhu;
  17FEB2019   Set each user file to a variable and created a stream loop
  18FEB2019   Change from clear text to hashed passwords
  18FEB2019   Handle the Exception thrown from the user's file
+ 20FEB2019   Remove System.exit after user's file is displayed
+ 20FEB2019   Add extra whitespace to output for readability
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;
@@ -37,7 +39,7 @@ public class Main {
    
    public static void main(String[] args) {
       do {
-         System.out.println("Please enter your choice:");
+         System.out.println("\r\nPlease enter your choice:");
          System.out.println("L - Login to Zoo Command & Control");
          System.out.println("Q - Quit program");
          String choice = scanner.next();
@@ -64,7 +66,7 @@ public class Main {
    }
    
    private static void logInScreen() {
-      System.out.println("Welcome to Zoo Command & Control\nPlease enter your username ");
+      System.out.println("\r\nWelcome to Zoo Command & Control\nPlease enter your username ");
       userInput = scanner.nextLine();
       user.setUsername(userInput);
       sam.setEnteredUsername(user.getUsername());
@@ -74,8 +76,8 @@ public class Main {
       user.setPassword(hasher.convertToHash(user.getPassword()));
       sam.setEnteredPassword(user.getPassword());
       if (sam.isValidAccount()) {
+         System.out.println("\r\n");
          showUserFile();
-         System.exit(0);
       } else {
          failedLogin();
       }

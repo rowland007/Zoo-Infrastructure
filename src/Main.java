@@ -25,6 +25,7 @@
  20FEB2019   Add Enter to continue and clear screen
  20FEB2019   Moved class to default package
  20FEB2019   Update links to user files
+ 20FEB2019   Add method to clear the screen
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;
@@ -40,6 +41,7 @@ public class Main {
    
    public static void main(String[] args) {
       do {
+         clearScreen();
          System.out.println("Please enter your choice:");
          System.out.println("L - Login to Zoo Command & Control");
          System.out.println("Q - Quit program");
@@ -78,7 +80,6 @@ public class Main {
       user.setPassword(hasher.convertToHash(user.getPassword()));
       sam.setEnteredPassword(user.getPassword());
       if (sam.isValidAccount()) {
-         System.out.println("\r\n");
          showUserFile();
          System.out.println("\r\n");
          pressAnyKeyToContinue();
@@ -112,7 +113,9 @@ public class Main {
    
    private static void failedLogin() {
       failedLogins++;
+      clearScreen();
       System.out.println("Username or password is incorrect!");
+      pressAnyKeyToContinue();
    }
    
    private static void pressAnyKeyToContinue()
@@ -131,19 +134,24 @@ public class Main {
       try
       {
          final String os = System.getProperty("os.name");
-      
          if (os.contains("Windows"))
          {
-            Runtime.getRuntime().exec("cls");
+            for(int clear = 0; clear < 1000; clear++)
+            {
+               System.out.println("\b") ;
+            }
          }
          else
          {
-            Runtime.getRuntime().exec("clear");
+            System.out.print("\033\143");
          }
       }
       catch (final Exception e)
       {
-         //  Handle any exceptions.
+         for(int clear = 0; clear < 1000; clear++)
+         {
+            System.out.println("\b") ;
+         }
       }
    }
    

@@ -17,15 +17,30 @@ package com.randarlabs.common;
  Modifications:
    Date                      Comment
  ---------   ------------------------------------------------
+ 20FEB2019   Add javadoc comments
  ************************************************************************/
 
+/**
+ * Used to represent a user logon
+ * @author Randall Rowland
+ * @version 1.0
+ */
 public class UserCredential {
    
+   /**
+    * Default constructor that initializes private variables to nothing.
+    */
    public UserCredential() {
       username = "";
       password = "";
    }
    
+   /**
+    * Stores the username as a string.
+    *
+    * @param username the string used for a username
+    * @throws Exception if a <code>String</code> is not passed or other error
+    */
    public void setUsername(String username) {
       try {
          this.username = username;
@@ -37,6 +52,12 @@ public class UserCredential {
       
    }
    
+   /**
+    * Stores the password as a string.
+    *
+    * @param password the string used for a password
+    * @throws Exception if a <code>String</code> is not passed or other error
+    */
    public void setPassword(String password) {
       try {
          this.password = password;
@@ -47,10 +68,20 @@ public class UserCredential {
       }
    }
    
+   /**
+    * Retrieves the username for this object.
+    *
+    * @return the username
+    */
    public final String getUsername() {
       return username;
    }
    
+   /**
+    * Retrieves the password for this object.
+    *
+    * @return the password
+    */
    public final String getPassword() {
       return password;
    }

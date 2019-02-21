@@ -17,13 +17,26 @@ package com.randarlabs.utilities;
     Date                      Comment
  ---------   ------------------------------------------------
  27Jan2019   Derived from the provided MD5Digest file
+ 21FEB2019   Add javadoc comments
  ************************************************************************/
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Used to open and read text files
+ * @author Randall Rowland
+ * @version 1.0
+ */
 public class PasswordConverter {
    
+   /**
+    * Creates a message digest with the MD5 algorithm.
+    *
+    * @param plainText the String that needs to be hashed
+    * @return the MD5 hashed text
+    * @throws NoSuchAlgorithmException if the algorithm is not installed or supported
+    */
    public  String convertToHash(String plainText) {
       try {
          MessageDigest md = MessageDigest.getInstance("MD5");

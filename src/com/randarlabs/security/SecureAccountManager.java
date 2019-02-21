@@ -28,8 +28,17 @@ import com.randarlabs.common.TextReader;
 
 import java.util.Scanner;
 
+/**
+ * Used to compare user logon info with a credential file
+ * @author Randall Rowland
+ * @version 1.0
+ */
 public class SecureAccountManager {
-
+   
+   /**
+    * Initializes everything to 0 or nothing. Sets the credential file path and
+    * loads the tab delimited credential file into respective arrays for comparison.
+    */
    public SecureAccountManager() {
       fileReader.setFile(credentialFileName);
       enteredUsername = "";
@@ -54,42 +63,76 @@ public class SecureAccountManager {
       }
    }
    
+   /**
+    * Compares the username and hashed password.
+    *
+    * @return true if and only if the username and hashed password match
+    */
    public final boolean isValidAccount() {
       return findUsernameIndex() != -1 && doesPasswordMatch(passwordArray[index]);
    }
    
+   /**
+    * Compares the username and plain text password.
+    *
+    * <b>FOR TESTING PURPOSES ONLY</b>
+    *
+    * @return true if and only if the username and plain text password match
+    */
    public final boolean isValidAccountClearText() {
       return findUsernameIndex() != -1 && doesPasswordMatch(passwordClearTextArray[index]);
    }
    
+   /**
+    * Returns the user's group name if the account is vaildated with username and hashed password.
+    *
+    * @return the user's group name or null
+    */
    public final String getUserGroup(){
-      if(isValidAccount()) {
-         return userGroupArray[index];
-      } else {
-         return null;
-      }
+      String result = isValidAccount() ? userGroupArray[index] : null;
+      return result;
    }
    
+   /**
+    * Returns the user's group name if the account is vaildated with username and plain text password.
+    *
+    * <b>FOR TESTING PURPOSES ONLY</b>
+    *
+    * @return the user's group name or null
+    */
    public final String getUserGroupClearText(){
-      if(isValidAccountClearText()) {
-         return userGroupArray[index];
-      } else {
-         return null;
-      }
+      String result = isValidAccountClearText() ? userGroupArray[index] : null;
+      return result;
    }
    
+   /**
+    * Sets the username from the supplied String.
+    *
+    * @param enteredUsername the supplied String the username will be set to
+    */
    public void setEnteredUsername(String enteredUsername) {
       this.enteredUsername = enteredUsername;
    }
    
+   /**
+    * Sets the password from the supplied String.
+    *
+    * @param enteredPassword the supplied String the password will be set to
+    */
    public void setEnteredPassword(String enteredPassword) {
       this.enteredPassword = enteredPassword;
    }
    
+   /**
+    * Closes the FileStream and Scanner connected to the credential file.
+    */
    private void closeCredentialFile() {
       fileReader.closeFile();
    }
    
+   /**
+    * Sets indexes back to zero and arrays point to null for garbage collection.
+    */
    public void close() {
       enteredUsername = null;
       enteredPassword = null;
@@ -102,14 +145,31 @@ public class SecureAccountManager {
       closeCredentialFile();
    }
    
+   /**
+    * Compares the stored username against the array of usernames.
+    *
+    * @param username from the credential file array
+    * @return true if the two strings match
+    */
    private final boolean doesUsernameMatch(String username) {
       return this.enteredUsername.equals(username);
    }
    
+   /**
+    * Compares the stored username against the array of usernames.
+    *
+    * @param password from the credential file array
+    * @return true if the two strings match
+    */
    private final boolean doesPasswordMatch(String password) {
       return this.enteredPassword.equals(password);
    }
    
+   /**
+    * Iterates through the username array to find if the username matches.
+    *
+    * @return index number of array where username was found
+    */
    private int findUsernameIndex() {
       for(int i = 0; i <= this.maxIndex; i++) {
          if(doesUsernameMatch(usernameArray[i])) {

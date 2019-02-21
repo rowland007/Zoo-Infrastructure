@@ -149,13 +149,12 @@ public class Main {
    private static void pressAnyKeyToContinue()
    {
       System.out.println("Press \"Enter\" key to continue...");
-      try
-      {
+      try {
          System.in.read();
          clearScreen();
+      } catch(Exception e) {
+         //ignore error and continue with program execution
       }
-      catch(Exception e)
-      {}
    }
    
    /**

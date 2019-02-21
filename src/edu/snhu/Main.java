@@ -24,6 +24,7 @@ package edu.snhu;
  18FEB2019   Handle the Exception thrown from the user's file
  20FEB2019   Remove System.exit after user's file is displayed
  20FEB2019   Add extra whitespace to output for readability
+ 20FEB2019   Add Enter to continue and clear screen
  ************************************************************************/
 
 import com.randarlabs.common.TextReader;
@@ -39,7 +40,7 @@ public class Main {
    
    public static void main(String[] args) {
       do {
-         System.out.println("\r\nPlease enter your choice:");
+         System.out.println("Please enter your choice:");
          System.out.println("L - Login to Zoo Command & Control");
          System.out.println("Q - Quit program");
          String choice = scanner.next();
@@ -66,7 +67,8 @@ public class Main {
    }
    
    private static void logInScreen() {
-      System.out.println("\r\nWelcome to Zoo Command & Control\nPlease enter your username ");
+      clearScreen();
+      System.out.println("Welcome to Zoo Command & Control\nPlease enter your username ");
       userInput = scanner.nextLine();
       user.setUsername(userInput);
       sam.setEnteredUsername(user.getUsername());
@@ -78,6 +80,8 @@ public class Main {
       if (sam.isValidAccount()) {
          System.out.println("\r\n");
          showUserFile();
+         System.out.println("\r\n");
+         pressAnyKeyToContinue();
       } else {
          failedLogin();
       }
@@ -92,6 +96,7 @@ public class Main {
          userFile.setFile(zookeeperTextFile);
       }
       try {
+         clearScreen();
          String lineOfText = "";
          while((lineOfText = userFile.getNextLine()) != null)
          {
@@ -108,6 +113,38 @@ public class Main {
    private static void failedLogin() {
       failedLogins++;
       System.out.println("Username or password is incorrect!");
+   }
+   
+   private static void pressAnyKeyToContinue()
+   {
+      System.out.println("Press \"Enter\" key to continue...");
+      try
+      {
+         System.in.read();
+         clearScreen();
+      }
+      catch(Exception e)
+      {}
+   }
+   
+   private static void clearScreen() {
+      try
+      {
+         final String os = System.getProperty("os.name");
+      
+         if (os.contains("Windows"))
+         {
+            Runtime.getRuntime().exec("cls");
+         }
+         else
+         {
+            Runtime.getRuntime().exec("clear");
+         }
+      }
+      catch (final Exception e)
+      {
+         //  Handle any exceptions.
+      }
    }
    
    private static UserCredential user = new UserCredential();
